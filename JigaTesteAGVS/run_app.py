@@ -2,6 +2,7 @@ import subprocess
 import webview
 from threading import Thread
 import time
+#COmeca o script
 
 def start_django():
     global server_process
