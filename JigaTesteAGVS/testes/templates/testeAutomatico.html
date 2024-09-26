@@ -3,5 +3,13 @@
 {% block content %}
 
 <h1>Teste Automatico</h1>
+<p>Placa a ser Testada: {{ Modelo }}</p>
+
+<form action="" method="get">
+    <input type="hidden" name="statusTeste" value="iniciado">
+    <button type="submit" class="btn btn-primary"> Iniciar Teste</button>
+</form>
+
+<p>Status do Teste: {{statusTeste}}</p>
 
 {% endblock %}
