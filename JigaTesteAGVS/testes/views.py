@@ -12,9 +12,9 @@ class TesteAutomaticoView(CreateView):
                    'statusTeste':'fazer'
                    }
     model = tbTestes
-    fields = ["FK_PLACA"]
-  
-  
+    fields = ["FK_PLACA", "DATA"]
+    success_url = ''
+
 
 class TesteManualView(TemplateView):
     template_name = 'testeManual.html'

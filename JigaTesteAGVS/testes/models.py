@@ -28,3 +28,6 @@ class tbPropriedades(models.Model):
 class tbTestes(models.Model):
     DATA = models.TimeField(verbose_name="TIMESTAMP")
     FK_PLACA = models.ForeignKey(tbPlacas, on_delete=models.CASCADE)
+    FK_PROPRIEDADE = models.ForeignKey(tbPropriedades, on_delete=models.CASCADE,blank=True)
+    RESULTADO = models.BooleanField()
+    TIPO_TESTE = models.CharField(max_length=15)

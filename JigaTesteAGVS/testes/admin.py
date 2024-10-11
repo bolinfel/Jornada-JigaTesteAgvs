@@ -9,7 +9,7 @@ class PlacasAdmin(admin.ModelAdmin):
     list_display=("NOME",)
     
 class PropriedadesAdmin(admin.ModelAdmin):
-    pass
+    list_display=("FK_PLACA","DESCRICAO")
 
 class TiposAdmin(admin.ModelAdmin):
     list_display=("NOME","COD")
