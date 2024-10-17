@@ -2,16 +2,10 @@
 
 {% block content %}
 
-<img src="./JigaTesteAGVS/home/templates/IMAGENS/" alt= ... title= " mama" widht="300" height="300">
-<img src="./JigaTesteAGVS/home/templates/IMAGENS/agvs.jpg" alt"" >
+<h1>Pagina inicial</h1>
+<p>Bem vindo</p>
 
-<div class="p-3 mb-2 bg-warning text-dark">
-    <div class="p-3 mb-2 bg-white text-dark"><h1>
-        <h1 class=" btn-outline-secondary btn-lg href="{% url 'testes'%}" role="button">INICIAR</h1></h1>
-
-
-   
-</div>
-</div>
+<a class="btn btn-primary" href="{% url 'testes'%}" role="button">Testes</a>
+<a class="btn btn-primary" href="{% url 'relatorios'%}" role="button">Relatorios</a>
 
 {% endblock %}
