@@ -7,7 +7,7 @@
 
 <form action="" method="get">
     <input type="hidden" name="statusTeste" value="iniciado">
-    <button type="submit" class="btn btn-primary"> Iniciar Teste</button>
+    <a class="btn btn-light mx-auto btn-sm" href="{% url 'relatorios'%}" role="button" style="margin-top: 100px">INICIAR</a>
 </form>
 
 <p>Status do Teste: {{statusTeste}}</p>
