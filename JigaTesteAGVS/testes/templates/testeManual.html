@@ -2,9 +2,12 @@
 
 {% block content %}
 
-    <h1>Teste Manual</h1>
-    <button type="button" class="btn btn-primary" name="IdentificarPlaca">Identificar Placa</button>
-    <p>{{ Modelo }}</p>
+<h1>Teste Manual</h1>
+<button type="button" class="btn btn-primary" name="IdentificarPlaca">Identificar Placa</button>
+<form action="{%url 'testes.manual'%}" method="POST">
+    {{form}}
+    <button type="submit"class="btn btn-primary"> submit </button>
+</form>
     
 
 {% endblock %}

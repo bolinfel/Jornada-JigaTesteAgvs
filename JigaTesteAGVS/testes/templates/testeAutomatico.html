@@ -5,13 +5,11 @@
 <h1>Teste Automatico</h1>
 <p>Placa a ser Testada: {{ Modelo }}</p>
 
-<form action="" method="get">
-    <input type="hidden" name="statusTeste" value="iniciado">
+<form action="{% url 'testes.automatico' %}" method="POST">{% csrf_token %}
+    {{ form }}
+    
     <a class="btn btn-light mx-auto btn-sm" href="{% url 'relatorios'%}" role="button" style="margin-top: 100px">INICIAR</a>
+    <button type="submit" class="btn btn-primary"> submit </button>
 </form>
-
-
-
-<p>Status do Teste: {{statusTeste}}</p>
 
 {% endblock %}
