@@ -4,10 +4,38 @@
 
 <h1>Teste Manual</h1>
 <button type="button" class="btn btn-primary" name="IdentificarPlaca">Identificar Placa</button>
-<form action="{%url 'testes.manual'%}" method="POST">
-    {{form}}
-    <button type="submit"class="btn btn-primary"> submit </button>
+<!-- testeManual.html -->
+<form method="post" action="{% url 'testes.manual' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#id_FK_PLACA').change(function() {
+                var fk_placa = $(this).val();
+
+                $.ajax({
+                    url: "{% url 'testes.manual' %}",  // Endpoint to load filtered properties
+                    data: { 'fk_placa': fk_placa },
+                    success: function (data) {
+                        var propriedades = data.propriedades;
+                        var $fk_propriedade = $('#id_FK_PROPRIEDADE');
+                        $fk_propriedade.empty();  // Clear previous options
+
+                        // Add new options
+                        $.each(propriedades, function(key, value) {
+                            $fk_propriedade.append($('<option></option>').attr('value', key).text(value));
+                        });
+                    },
+                    error: function() {
+                        console.log("Failed to fetch properties");
+                    }
+                });
+            });
+        });
+    </script>
 </form>
-    
+
 
 {% endblock %}

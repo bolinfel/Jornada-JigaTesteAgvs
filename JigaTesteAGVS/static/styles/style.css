@@ -8,6 +8,17 @@ body{
     background-color:#252525;
 }
 
+p{
+    color:white;
+}
+h1{
+    color:white;
+}
+
+form{
+    color: white;
+}
+
 .btn-sm{
     padding: 10px 200px;
     font-size: 20px;

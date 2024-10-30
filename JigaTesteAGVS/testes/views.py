@@ -6,6 +6,9 @@ from django.http import HttpResponse
 from testes.models import tbTestes, tbPropriedades
 from django.utils import timezone
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from .forms import tbTestesForm
+from django.http import JsonResponse
 
 class TestesView(TemplateView):
    template_name = 'testes.html'
@@ -17,7 +20,7 @@ class TesteAutomaticoView(CreateView):
                    }
     model = tbTestes
     fields = ["FK_PLACA"]
-    success_url = 'testes'
+    success_url = '/'
 
     def form_valid(self, form):
         # Get the selected FK_PLACA from the form
@@ -43,7 +46,33 @@ class TesteAutomaticoView(CreateView):
 
 class TesteManualView(CreateView):
     template_name = 'testeManual.html'
-    extra_context = {'Modelo':'CAN_IR'}
-    model = tbTestes
-    fields = ["FK_PLACA", "DATA", "TIPO_TESTE","FK_PROPRIEDADE",]
-    success_url = 'testes'
+    form_class = tbTestesForm
+    success_url = '/testes'
+
+    template_name = 'testeManual.html'
+    form_class = tbTestesForm
+    success_url = '/testes'
+
+    def get(self, request, *args, **kwargs):
+        # Check if the request is AJAX and contains fk_placa
+        fk_placa = request.GET.get('fk_placa')
+        
+        if fk_placa:
+            # Filter properties related to the selected board
+            propriedades = tbPropriedades.objects.filter(FK_PLACA=fk_placa)
+            propriedades_data = {prop.id: prop.DESCRICAO for prop in propriedades}
+            return JsonResponse({'propriedades': propriedades_data})
+        
+        # If it's a standard GET request, render the form as usual
+        return super().get(request, *args, **kwargs)
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        fk_placa = self.request.GET.get('fk_placa')
+        
+        if fk_placa:
+            form.fields['FK_PROPRIEDADE'].queryset = tbPropriedades.objects.filter(FK_PLACA=fk_placa)
+        else:
+            form.fields['FK_PROPRIEDADE'].queryset = tbPropriedades.objects.none()
+        
+        return form
