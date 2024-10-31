@@ -2,39 +2,57 @@
 
 {% block content %}
 
+
 <h1>Teste Manual</h1>
-<button type="button" class="btn btn-primary" name="IdentificarPlaca">Identificar Placa</button>
 <!-- testeManual.html -->
-<form method="post" action="{% url 'testes.manual' %}">
+{% load template_filters %}
+<form method="post" action="{% url 'testes.manual' %}" style="margin-top: 20px; max-width: 500px; margin: 0 auto;" >
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="mb-3">
+        <label for="id_FK_PLACA" class="form-label">Placa</label>
+        {{ form.FK_PLACA|add_class:"form-select" }}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_FK_PROPRIEDADE" class="form-label">Propriedade</label>
+        {{ form.FK_PROPRIEDADE|add_class:"form-select" }}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_num_repeticoes" class="form-label">Número de Repetições</label>
+        {{ form.num_repeticoes }}
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#id_FK_PLACA').change(function() {
                 var fk_placa = $(this).val();
-
+        
                 $.ajax({
-                    url: "{% url 'testes.manual' %}",  // Endpoint to load filtered properties
+                    url: "{% url 'testes.manual' %}",  // Endpoint para carregar as propriedades filtradas
                     data: { 'fk_placa': fk_placa },
-                    success: function (data) {
+                    success: function(data) {
                         var propriedades = data.propriedades;
                         var $fk_propriedade = $('#id_FK_PROPRIEDADE');
-                        $fk_propriedade.empty();  // Clear previous options
-
-                        // Add new options
+                        $fk_propriedade.empty();  // Limpa opções anteriores
+        
+                        // Adiciona novas opções
                         $.each(propriedades, function(key, value) {
                             $fk_propriedade.append($('<option></option>').attr('value', key).text(value));
                         });
                     },
                     error: function() {
-                        console.log("Failed to fetch properties");
+                        console.log("Erro ao buscar propriedades");
                     }
                 });
             });
         });
+        
     </script>
+
+    <button type="submit" class="btn btn-light mx-auto btn-sm" style="margin-top: 20px"> INICIAR </button>
+
 </form>
 
 

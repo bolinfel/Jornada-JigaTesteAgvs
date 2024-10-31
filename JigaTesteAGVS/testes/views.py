@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from testes.models import tbTestes, tbPropriedades
 from django.utils import timezone
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect
 from .forms import tbTestesForm
 from django.http import JsonResponse
 
@@ -53,6 +53,29 @@ class TesteManualView(CreateView):
     form_class = tbTestesForm
     success_url = '/testes'
 
+    def form_invalid(self, form):
+        print("Formulário inválido:", form.errors)
+        return super().form_invalid(form)
+
+    def form_valid(self, form):
+        fk_placa = form.cleaned_data['FK_PLACA']
+        fk_propriedade = form.cleaned_data['FK_PROPRIEDADE']
+        num_repeticoes = form.cleaned_data['num_repeticoes']  # Obtém o número de repetições do usuário
+
+        print(f"Placa: {fk_placa}, Propriedade: {fk_propriedade}, Repetições: {num_repeticoes}")
+
+        # Cria uma linha para cada repetição
+        for _ in range(num_repeticoes):
+            tbTestes.objects.create(
+                DATA=timezone.now(),
+                FK_PLACA=fk_placa,
+                FK_PROPRIEDADE=fk_propriedade,
+                RESULTADO=False,  # Ajuste conforme necessário
+                TIPO_TESTE="MAN"
+            )
+
+        return redirect(self.success_url)
+
     def get(self, request, *args, **kwargs):
         # Check if the request is AJAX and contains fk_placa
         fk_placa = request.GET.get('fk_placa')
@@ -68,11 +91,12 @@ class TesteManualView(CreateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        fk_placa = self.request.GET.get('fk_placa')
-        
+        fk_placa = self.request.GET.get('fk_placa') or self.request.POST.get('FK_PLACA')
+
         if fk_placa:
             form.fields['FK_PROPRIEDADE'].queryset = tbPropriedades.objects.filter(FK_PLACA=fk_placa)
         else:
             form.fields['FK_PROPRIEDADE'].queryset = tbPropriedades.objects.none()
         
         return form
+

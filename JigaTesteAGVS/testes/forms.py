@@ -3,6 +3,12 @@ from django import forms
 from .models import tbTestes, tbPropriedades
 
 class tbTestesForm(forms.ModelForm):
+    num_repeticoes = forms.IntegerField(
+        label="Número de Repetições",
+        min_value=1,
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Digite um número'})
+    )
+    
     class Meta:
         model = tbTestes
         fields = ["FK_PLACA", "FK_PROPRIEDADE"]
