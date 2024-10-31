@@ -3,8 +3,9 @@
     <head>
         <title> JigadeTestes </title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
-        <link rel="stylesheet" type="text/css" href="/static/styles/style.css">
-      </head> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
+    </head> 
     <body>
         <nav class="navbar navbar-light border-body navbar-expand-lg bg-body-tertiary"> 
             <div class="container-fluid">
@@ -17,12 +18,12 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'relatorios'%}" style="font-size: 20px;">Relatorios</a>
                   </li>
-                  <li class="nav-item dropdown" aria-disabled="true">
-                    <a class="nav-link dropdown-toggle" href="{% url 'testes'%}" id="userMenu"data-bs-toggle="dropdown" aria-haspopup="true"aria-expanded="false" style="font-size: 20px;">Teste </a>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{% url 'testes'%}" id="userMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 20px;">Teste</a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
-                        <a class="dropdown-item" href="#">Upload</a>
+                        <a class="dropdown-item" href="{% url 'testes.automatico'%}"><i class="fa fa-cog"></i>Teste Automatico</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Log Out</a>
+                        <a class="dropdown-item" href="{% url 'testes.manual'%}"><i class="fa fa-search"></i>Teste Manual</a>
                     </div>
                   </li>
                 </ul>
@@ -30,10 +31,13 @@
             </div>
           </nav>
         
-        <div class = "my-5 text-center container">
+        <div class="my-5 text-center container">
             {% block content %}
             {% endblock %}
         </div>
         
+        <!-- Place JavaScript at the end of the body for better performance -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
     </body>
 </html>

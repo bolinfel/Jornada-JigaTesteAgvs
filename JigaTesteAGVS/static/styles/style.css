@@ -4,6 +4,10 @@
     font-size: 20px;
 }
 
+.dropdown-item i {
+    margin-right: 8px;
+}
+
 body{
     background-color:#252525;
 }
