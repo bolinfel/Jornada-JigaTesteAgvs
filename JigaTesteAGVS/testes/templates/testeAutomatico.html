@@ -6,11 +6,14 @@
 <p>Placa a ser Testada: {{ now }}</p>
 
 <form action="{% url 'testes.automatico' %}" method="POST">{% csrf_token %}
-    {{ form }}
-    
-    <!--<a class="btn btn-light mx-auto btn-sm" href="{% url 'relatorios'%}" role="button" style="margin-top: 100px">INICIAR</a>-->
+    <div>
+        {{ form }}
+    </div>
     
     <button  type="submit" class="btn btn-light mx-auto btn-sm" style="margin-top: 100px"> Iniciar </button>
 </form>
 
 {% endblock %}
+
+
+<!--<a class="btn btn-light mx-auto btn-sm" href="{% url 'relatorios'%}" role="button" style="margin-top: 100px">INICIAR</a>-->

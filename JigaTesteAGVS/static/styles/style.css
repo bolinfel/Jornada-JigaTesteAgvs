@@ -31,3 +31,12 @@ form{
     border-width: 10px;
 }
 
+i{
+    color: white;
+}
+
+.photos{
+    margin-top: 40px;
+    padding-top: 60px;
+    
+}
