@@ -32,11 +32,22 @@ form{
 }
 
 i{
-    color: white;
+    color: black;
+}
+
+a{
+    text-decoration: none;
 }
 
 .photos{
     margin-top: 40px;
     padding-top: 60px;
-    
+    margin-right: 200px;
+    margin-left: 200px;
+}
+
+.caption{
+    color: white;
+    font-size: 20px; 
+    font-style: italic; 
 }

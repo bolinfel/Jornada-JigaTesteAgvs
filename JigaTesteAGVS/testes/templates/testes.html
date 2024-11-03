@@ -4,7 +4,17 @@
 
 <h1>Testes</h1>
 
-<a class="btn btn-primary" href="{% url 'testes.automatico'%}" role="button">Teste Automatico</a>
-<a class="btn btn-primary" href="{% url 'testes.manual'%}" role="button">Teste Manual</a>
+<div class="container mt-3">
+    <div class="d-grid gap-3">
+        <button type="submit" class="btn btn-light mx-auto btn-sm" style="margin-top: 20px"> Teste Manual </button>
+        <button type="submit" class="btn btn-light mx-auto btn-sm" style="margin-top: 20px"> Teste Automático </button>
+    </div>
+</div>
+
+
+<!--<a class="btn btn-primary" href="{% url 'testes.automatico'%}" role="button">Teste Automatico</a>
+<a class="btn btn-primary" href="{% url 'testes.manual'%}" role="button">Teste Manual</a>-->
+
+
 
 {% endblock %}

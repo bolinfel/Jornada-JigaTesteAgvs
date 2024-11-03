@@ -7,20 +7,33 @@
 <div class="container">
     <div class="row photos">
         <div class="column col-md-6">
-            <img class="rounded p-1" src="static/templates/images/report.svg" alt="report" width="150" height="150" style="background-color: rgb(255, 187, 0);">
+            <figure class="figure">
+                <a href="{% url 'testes'%}">
+                    <img class="rounded p-1" src="static/templates/images/pc-gear.svg" alt="pc-gear" width="150px" height="150px" style="background-color: rgb(255, 187, 0);">
+                    <figcaption class="caption">Testes</figcaption>
+                </a>
+            </figure>
         </div>
         <div class="column col-md-6">
-            <img class="rounded p-1" src="static/templates/images/pc-gear.svg" alt="report" width="150" height="150" style="background-color: rgb(255, 187, 0);">
+            <figure class="figure">
+                <a href="{% url 'relatorios'%}">
+                    <img class="rounded p-1" src="static/templates/images/report.svg" alt="report" width="150px" height="150px"  style="background-color: rgb(255, 187, 0);">
+                    <figcaption class="caption">Relatórios</figcaption>
+                </a>
+            </figure>
         </div>
     </div>
     <div class="row fixed-bottom mx-auto">
         <div class="column col-md-12">
-            <img class="" src="static/templates/images/LogoAGVs_fundoEscuro.svg" alt="logo" width="200px" height="75px">
+            <img src="static/templates/images/LogoAGVs_fundoEscuro.svg" alt="logo" width="150px" height="50px">
         </div>
     </div>  
 </div>
 
-
+<!--<figure>
+    <img src="path/to/your/image.jpg" alt="Description of the image" />
+    <figcaption>This is a description of the image.</figcaption>
+</figure>-->
 
    
 
