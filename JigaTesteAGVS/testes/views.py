@@ -10,13 +10,15 @@ from django.shortcuts import redirect
 from .forms import tbTestesForm
 from django.http import JsonResponse
 
+import random as rd
+
 class TestesView(TemplateView):
    template_name = 'testes.html'
 
 class TesteAutomaticoView(CreateView):
     template_name = 'testeAutomatico.html'
     extra_context = {'Modelo':'CAN_IR',
-                   'statusTeste':'fazer'
+                   'now':timezone.now(),
                    }
     model = tbTestes
     fields = ["FK_PLACA"]
@@ -36,7 +38,7 @@ class TesteAutomaticoView(CreateView):
                 DATA=timezone.now(),
                 FK_PLACA=fk_placa,
                 FK_PROPRIEDADE=propriedade,
-                RESULTADO=False,  # Default result (can be changed later)
+                RESULTADO=bool(rd.getrandbits(1)),  # Default result (can be changed later)
                 TIPO_TESTE="AUT"  # Set TIPO_TESTE to "AUT"
             )
         
@@ -70,7 +72,7 @@ class TesteManualView(CreateView):
                 DATA=timezone.now(),
                 FK_PLACA=fk_placa,
                 FK_PROPRIEDADE=fk_propriedade,
-                RESULTADO=False,  # Ajuste conforme necessário
+                RESULTADO=bool(rd.getrandbits(1)),  # Ajuste conforme necessário
                 TIPO_TESTE="MAN"
             )
 
