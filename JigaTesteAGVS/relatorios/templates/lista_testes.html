@@ -14,6 +14,7 @@
             <th>Propriedade</th>
             <th>Resultado</th>
             <th>Tipo de Teste</th>
+            <th> Detalhes </th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,7 @@
             <td>{{ teste.FK_PROPRIEDADE.DESCRICAO }}</td>
             <td>{{ teste.RESULTADO|yesno:"Sucesso,Falha" }}</td>
             <td>{{ teste.TIPO_TESTE }}</td>
+            <th><a class="btn btn-light" href="{% url 'relatorios.detalhes' teste.id %}">+</a></th>
         </tr>
         {% empty %}
         <tr>

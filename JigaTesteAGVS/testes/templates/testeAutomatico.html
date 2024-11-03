@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>Teste Automatico</h1>
-<p>Placa a ser Testada: {{ now }}</p>
+<p>Testar todas as portas da placa selecionada</p>
 
 <form action="{% url 'testes.automatico' %}" method="POST">{% csrf_token %}
     <div>

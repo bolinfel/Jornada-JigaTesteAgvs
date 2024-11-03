@@ -1,0 +1,18 @@
+<!-- templates/test_detail.html -->
+{% extends "master.html" %}
+
+{% block content %}
+<h1 class="text-white">Detalhes do Teste</h1>
+
+<div class="card text-white bg-dark mb-3">
+    <div class="card-header">Teste ID: {{ teste.id }}</div>
+    <div class="card-body">
+        <p><strong>Data e Hora:</strong> {{ teste.DATA|date:"d/m/Y H:i" }}</p>
+        <p><strong>Placa:</strong> {{ teste.FK_PLACA.NOME }}</p>
+        <p><strong>Propriedade:</strong> {{ teste.FK_PROPRIEDADE.DESCRICAO }}</p>
+        <p><strong>Resultado:</strong> {{ teste.RESULTADO|yesno:"Sucesso,Falha" }}</p>
+        <p><strong>Tipo de Teste:</strong> {{ teste.TIPO_TESTE }}</p>
+    </div>
+</div>
+<a href="{% url 'relatorios.lista' %}" class="btn btn-light">Voltar</a>
+{% endblock %}
