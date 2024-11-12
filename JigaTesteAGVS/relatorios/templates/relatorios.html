@@ -2,11 +2,23 @@
 
 {% block content %}
 
-<h1>Relatorios</h1>
-<p> Pagina inicial dos relatorios </p>
+<h1>Relatórios</h1>
+<p> Pagina inicial dos relatórios.</p>
 
-<a class="btn btn-primary" href="{% url 'relatorios.lista'%}" role="button">Lista</a>
-<a class="btn btn-primary" href="{% url 'relatorios.dashboard'%}" role="button">Dashboard</a>
+<div class="container mt-3">
+    <div class="d-grid gap-3">
+        <a href="{% url 'relatorios.lista'%}">
+            <button type="submit" class="btn btn-light mx-auto btn-sm btn_test" style="margin-top: 20px"> Lista </button>
+        </a>
+        <a href="{% url 'relatorios.dashboard'%}">
+            <button type="submit" class="btn btn-light mx-auto btn-sm btn_test" style="margin-top: 20px"> Dashboard </button>
+        </a>
+    </div>
+</div>
 
+<!--<a class="btn btn-primary" href="{% url 'relatorios.lista'%}" role="button">Lista</a>
+<a class="btn btn-primary" href="{% url 'relatorios.dashboard'%}" role="button">Dashboard</a>-->
 
 {% endblock %}
+
+

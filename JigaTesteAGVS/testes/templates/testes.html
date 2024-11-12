@@ -6,8 +6,12 @@
 
 <div class="container mt-3">
     <div class="d-grid gap-3">
-        <button type="submit" class="btn btn-light mx-auto btn-sm" style="margin-top: 20px"> Teste Manual </button>
-        <button type="submit" class="btn btn-light mx-auto btn-sm" style="margin-top: 20px"> Teste Automático </button>
+        <a href="{% url 'testes.manual'%}">
+            <button type="submit" class="btn btn-light mx-auto btn-sm btn_test" style="margin-top: 20px"> Teste Manual </button>
+        </a>
+        <a href="{% url 'testes.automatico'%}">
+            <button type="submit" class="btn btn-light mx-auto btn-sm btn_test" style="margin-top: 20px"> Teste Automático </button>
+        </a>
     </div>
 </div>
 
