@@ -5,4 +5,62 @@
 <h1>Dashboard</h1>
 <p> Dados e relatorios dos testes </p>
 
+<form method="get" action="{% url 'relatorios.dashboard' %}">
+    <div class="form-group">
+        <label for="fk_placa">Selecione a Placa:</label>
+        <select name="fk_placa" id="fk_placa" class="form-select" onchange="this.form.submit()">
+            {% for board in boards %}
+                <option value="{{ board.id }}" {% if board.id|stringformat:"s" == selected_fk_placa|stringformat:"s" %}selected{% endif %}>
+                    {{ board.NOME }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</form>
+
+<!-- Bar Chart -->
+<canvas class="chart" id="successChart" width="400" height="200"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('successChart').getContext('2d');
+        var successData = {{ success_data|safe }};
+        
+        // Prepare data for Chart.js
+        var labels = successData.map(item => item.property);
+        var successRates = successData.map(item => item.success_rate);
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Success Rate (%)',
+                    data: successRates,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+
 {% endblock %}

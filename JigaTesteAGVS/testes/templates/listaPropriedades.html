@@ -1,0 +1,51 @@
+<!-- property_list.html -->
+{% extends "master.html" %}
+{% block content %}
+<h1>Propriedades da Placa</h1>
+
+<form method="get" action="">
+    <div class="mb-3">
+        <label for="placa_id" class="form-label">Selecione uma Placa</label>
+        <select name="placa_id" id="placa_id" class="form-select" onchange="this.form.submit()">
+            <option value="">-- Selecione --</option>
+            {% for placa in placas %}
+                <option value="{{ placa.id }}" {% if placa.id == selected_placa.id %}selected{% endif %}>
+                    {{ placa.NOME }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</form>
+
+{% if selected_placa %}
+    <h2>Propriedades de {{ selected_placa.NOME }}</h2>
+    <table class="table table-light table-striped">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Porta</th>
+                <th>Tipo</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for propriedade in propriedades %}
+                <tr>
+                    <td>{{ propriedade.DESCRICAO }}</td>
+                    <td>{{ propriedade.PORTA }}</td>
+                    <td>{{ propriedade.FK_TIPO.NOME }}</td>
+                    <td>
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <input type="hidden" name="propriedade_id" value="{{ propriedade.id }}">
+                            <input type="hidden" name="placa_id" value="{{ selected_placa.id }}">
+                            <button type="submit" class="btn btn-primary btn-sm">Realizar Teste</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+{% endblock %}

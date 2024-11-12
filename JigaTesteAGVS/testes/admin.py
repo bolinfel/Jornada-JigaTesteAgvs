@@ -13,7 +13,11 @@ class PropriedadesAdmin(admin.ModelAdmin):
 class TiposAdmin(admin.ModelAdmin):
     list_display=("NOME","COD")
 
+class OperacoesAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(models.tbTestes, admin_class=TestesAdmin)
 admin.site.register(models.tbPlacas, PlacasAdmin)
 admin.site.register(models.tbPropriedades, PropriedadesAdmin)
 admin.site.register(models.tbTipos, TiposAdmin)
+admin.site.register(models.tbOperacoes, OperacoesAdmin)
