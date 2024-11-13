@@ -1,3 +1,58 @@
+/* Base style for the result-badge (individual cell indicator) */
+.result-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-weight: bold;
+}
+
+/* Success background for result badge */
+.result-badge.success {
+    background-color: #e6f4ea;   /* Light green background */
+    color: #1b7d36;              /* Dark green text */
+}
+
+.result-badge.success .status-indicator {
+    background-color: #1b7d36;   /* Dark green indicator */
+}
+
+/* Failure background for result badge */
+.result-badge.failure {
+    background-color: #f9e6e6;   /* Light red background */
+    color: #b71c1c;              /* Dark red text */
+}
+
+.result-badge.failure .status-indicator {
+    background-color: #b71c1c;   /* Dark red indicator */
+}
+
+/* No test background for result badge */
+.result-badge.no-test {
+    background-color: #f0f0f0;   /* Light gray background */
+    color: #6c757d;              /* Gray text */
+}
+
+.result-badge.no-test .status-indicator {
+    background-color: #6c757d;   /* Gray indicator */
+}
+
+/* Status indicator styles */
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* General style for the status text */
+.status-text {
+    color: inherit;
+}
+
+
 .navbar {
     background-color:#F2921D;
     color : #0D0D0D;
@@ -67,4 +122,29 @@ footer{
     justify-content: space-around;
     width: 50%;
     margin: 5px;
+}
+/* Change the color of the "Show entries" text to white */
+.dataTables_length label,
+.dataTables_info {
+    color: white !important; /* Force the text color to white */
+}
+
+/* Change the pagination and info text color */
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+.dataTables_wrapper .dataTables_info {
+    color: #ffffff; /* Example: Bootstrap success green */
+}
+
+/* Change the color of the search label and input text */
+.dataTables_wrapper .dataTables_filter label,
+.dataTables_wrapper .dataTables_filter input {
+    color: #ffffff; /* Example: Bootstrap purple */
+}
+
+/* Optional: Change background of search input to stand out */
+.dataTables_wrapper .dataTables_filter input {
+    background-color: #f8f9fa; /* Light gray background */
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 3px;
 }

@@ -1,7 +1,7 @@
-<!-- property_list.html -->
 {% extends "master.html" %}
+
 {% block content %}
-<h1>Propriedades da Placa</h1>
+<h1>Teste individual</h1>
 
 <form method="get" action="">
     <div class="mb-3">
@@ -18,34 +18,60 @@
 </form>
 
 {% if selected_placa %}
-    <h2>Propriedades de {{ selected_placa.NOME }}</h2>
-    <table class="table table-light table-striped">
-        <thead>
-            <tr>
-                <th>Descrição</th>
-                <th>Porta</th>
-                <th>Tipo</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for propriedade in propriedades %}
+    <h2 style="color: darkgray;">Propriedades de {{ selected_placa.NOME }}</h2>
+    {% if properties_with_latest_test %}
+        <table class="table table-light table-striped">
+            <thead>
                 <tr>
-                    <td>{{ propriedade.DESCRICAO }}</td>
-                    <td>{{ propriedade.PORTA }}</td>
-                    <td>{{ propriedade.FK_TIPO.NOME }}</td>
-                    <td>
-                        <form method="post" action="">
-                            {% csrf_token %}
-                            <input type="hidden" name="propriedade_id" value="{{ propriedade.id }}">
-                            <input type="hidden" name="placa_id" value="{{ selected_placa.id }}">
-                            <button type="submit" class="btn btn-primary btn-sm">Realizar Teste</button>
-                        </form>
-                    </td>
+                    <th>Descrição</th>
+                    <th>Porta</th>
+                    <th>Tipo</th>
+                    <th>Último Teste</th>
+                    <th>Resultado do Último Teste</th>
+                    <th>Ação</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for item in properties_with_latest_test %}
+                    <tr>
+                        <td>{{ item.propriedade.DESCRICAO }}</td>
+                        <td>{{ item.propriedade.PORTA }}</td>
+                        <td>{{ item.propriedade.FK_TIPO.NOME }}</td>
+                        <td>
+                            {% if item.latest_test_date %}
+                                {{ item.latest_test_date|date:"d/m/Y H:i" }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if item.latest_test_result is not None %}
+                                <span class="result-badge {% if item.latest_test_result == True %}success{% elif item.latest_test_result == False %}failure{% else %}no-test{% endif %}">
+                                    <span class="status-indicator"></span>
+                                    <span class="status-text">{% if item.latest_test_result %}Sucesso{% else %}Falha{% endif %}</span>
+                                </span>
+                            {% else %}
+                                <span class="result-badge no-test">
+                                    <span class="status-indicator"></span>
+                                    <span class="status-text">N/A</span>
+                                </span>
+                            {% endif %}
+                        </td>                       
+                        <td>
+                            <form method="post" action="">
+                                {% csrf_token %}
+                                <input type="hidden" name="propriedade_id" value="{{ item.propriedade.id }}">
+                                <input type="hidden" name="placa_id" value="{{ selected_placa.id }}">
+                                <button type="submit" class="btn btn-dark">Realizar Teste</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Não foram encontradas propriedades para a placa selecionada.</p>
+    {% endif %}
 {% endif %}
 
 {% endblock %}

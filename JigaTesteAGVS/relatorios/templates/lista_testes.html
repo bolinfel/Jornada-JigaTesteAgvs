@@ -5,7 +5,7 @@
 <h1>Log de Testes</h1>
 <p> lista completa com todos os testes realizados </p>
 
-<table class="table table-hover table-dark table-bordered table-striped text-white">
+<table id="myDataTable" class="table table-hover table-dark table-bordered table-striped text-white">
     <thead class="text-white">
         <tr>
             <th>ID</th>
@@ -23,7 +23,19 @@
             <td>{{ teste.DATA|date:"d/m/Y H:i" }}</td>
             <td>{{ teste.FK_PLACA.NOME }}</td>
             <td>{{ teste.FK_PROPRIEDADE.DESCRICAO }}</td>
-            <td>{{ teste.RESULTADO|yesno:"Sucesso,Falha" }}</td>
+            <td>
+                {% if teste.RESULTADO is not None %}
+                    <span class="result-badge {% if teste.RESULTADO == True %}success{% elif teste.RESULTADO == False %}failure{% else %}no-test{% endif %}">
+                        <span class="status-indicator"></span>
+                        <span class="status-text">{% if teste.RESULTADO %}Sucesso{% else %}Falha{% endif %}</span>
+                    </span>
+                {% else %}
+                    <span class="result-badge no-test">
+                        <span class="status-indicator"></span>
+                        <span class="status-text">N/A</span>
+                    </span>
+                {% endif %}
+            </td>
             <th style="text-align: center;"><a class="btn btn-light" href="{% url 'relatorios.detalhes' teste.id %}">+</a></th>
         </tr>
         {% empty %}

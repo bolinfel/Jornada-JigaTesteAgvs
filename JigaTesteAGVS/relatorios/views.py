@@ -10,7 +10,6 @@ class RelatoriosView(TemplateView):
 class ListaView(ListView):
     template_name = 'lista_testes.html'
     model = tbTestes
-    paginate_by = 20
 
     context_object_name = 'testes'  # Nome que será usado para acessar os dados no template
 

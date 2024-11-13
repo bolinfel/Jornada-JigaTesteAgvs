@@ -8,6 +8,7 @@ from django.shortcuts import redirect, get_object_or_404
 from .forms import tbTestesForm
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Max
 import random as rd
 
 class TestesView(TemplateView):
@@ -20,7 +21,7 @@ class TesteAutomaticoView(LoginRequiredMixin, CreateView):
                    }
     model = tbTestes
     fields = ["FK_PLACA"]
-    success_url = '/'
+    success_url = '/relatorios/lista'
 
     def form_valid(self, form):
         # Get the selected FK_PLACA from the form
@@ -49,7 +50,6 @@ class TesteAutomaticoView(LoginRequiredMixin, CreateView):
         
         # Redirect after processing
         return HttpResponseRedirect(self.success_url)
-
 
 class TesteManualView(CreateView):
     template_name = 'testeManual.html'
@@ -114,18 +114,41 @@ class ListaPropriedadesView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        # Get selected board
+        # Get all boards and selected board
         placa_id = self.request.GET.get('placa_id')
         context['placas'] = tbPlacas.objects.all()
         
         if placa_id:
             placa = get_object_or_404(tbPlacas, id=placa_id)
             context['selected_placa'] = placa
-            context['propriedades'] = tbPropriedades.objects.filter(FK_PLACA=placa)
+            
+            # Get properties for the selected board and add the latest test info for each
+            propriedades = tbPropriedades.objects.filter(FK_PLACA=placa).annotate(
+                latest_test_date=Max('tbtestes__DATA')
+            )
+
+            properties_with_latest_test = []
+
+            # Check if properties are being retrieved correctly
+            if not propriedades:
+                print("No properties found for the selected board.")
+            
+            for propriedade in propriedades:
+                # Retrieve the latest test for each property
+                latest_test = tbTestes.objects.filter(FK_PLACA=placa, FK_PROPRIEDADE=propriedade).order_by('-DATA').first()
+                properties_with_latest_test.append({
+                    'propriedade': propriedade,
+                    'latest_test_date': latest_test.DATA if latest_test else None,
+                    'latest_test_result': latest_test.RESULTADO if latest_test else None
+                })
+
+            context['properties_with_latest_test'] = properties_with_latest_test
         else:
-            context['propriedades'] = []
-        
+            context['properties_with_latest_test'] = []
+
         return context
+
+
 
     def post(self, request, *args, **kwargs):
         # Handle single test execution when button is clicked
@@ -145,7 +168,7 @@ class ListaPropriedadesView(LoginRequiredMixin, TemplateView):
                 FK_PLACA=propriedade.FK_PLACA,
                 FK_PROPRIEDADE=propriedade,
                 FK_OPERACAO=operacao,
-                RESULTADO=False,  # Default result (adjust based on your logic)
+                RESULTADO=bool(rd.getrandbits(1)),  # Default result (adjust based on your logic)
                 TIPO_TESTE="Manual"
             )
 
