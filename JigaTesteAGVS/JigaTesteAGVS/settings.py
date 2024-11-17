@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'testes',
-    'relatorios'
+    'relatorios',
+    'user',
 ]
 
 MIDDLEWARE = [
