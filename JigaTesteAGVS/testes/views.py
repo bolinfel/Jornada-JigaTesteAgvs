@@ -15,6 +15,7 @@ class TestesView(TemplateView):
    template_name = 'testes.html'
 
 class TesteAutomaticoView(LoginRequiredMixin, CreateView):
+    login_url = "/user/login/"
     template_name = 'testeAutomatico.html'
     extra_context = {'Modelo':'CAN_IR',
                    'now':timezone.now(),
