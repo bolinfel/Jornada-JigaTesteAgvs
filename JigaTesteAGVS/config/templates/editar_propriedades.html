@@ -1,16 +1,16 @@
 {% extends "master.html" %}
 
 {% block content %}
-<h1>Editar Propriedades</h1>
+<h1>Editar Placa e Propriedades</h1>
 
-<!-- Seleção de Placa -->
-<form method="get" action="">
+<!-- Seleção de placa -->
+<form method="get" action="{% url 'editar_placa' %}">
     <div class="mb-3">
         <label for="placa_id" class="form-label">Selecione uma Placa</label>
         <select name="placa_id" id="placa_id" class="form-select" onchange="this.form.submit()">
             <option value="">-- Selecione --</option>
             {% for placa in placas %}
-                <option value="{{ placa.id }}" {% if selected_placa and placa.id == selected_placa.id %}selected{% endif %}>
+                <option value="{{ placa.id }}" {% if placa.id == selected_placa.id %}selected{% endif %}>
                     {{ placa.NOME }}
                 </option>
             {% endfor %}
@@ -18,44 +18,52 @@
     </div>
 </form>
 
-<!-- Tabela Editável -->
 {% if selected_placa %}
     <h2>Propriedades de {{ selected_placa.NOME }}</h2>
-    <form method="post" action="">
+    <form method="post" action="{% url 'editar_placa' %}">
         {% csrf_token %}
-        <input type="hidden" name="placa_id" value="{{ selected_placa.id }}">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="propriedades-tabela">
             <thead>
                 <tr>
                     <th>Tipo</th>
                     <th>Porta</th>
                     <th>Descrição</th>
+                    <th>Ação</th>
                 </tr>
             </thead>
             <tbody>
                 {% for propriedade in propriedades %}
-                    <tr>
-                        <td>
-                            <input type="hidden" name="propriedade_id" value="{{ propriedade.id }}">
-                            <select name="tipo_id" class="form-select">
-                                {% for tipo in tipos %}
-                                    <option value="{{ tipo.id }}" {% if propriedade.FK_TIPO.id == tipo.id %}selected{% endif %}>
-                                        {{ tipo.NOME }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </td>
-                        <td>
-                            <input type="number" name="porta" value="{{ propriedade.PORTA }}" class="form-control">
-                        </td>
-                        <td>
-                            <input type="text" name="descricao" value="{{ propriedade.DESCRICAO }}" class="form-control">
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        <select name="tipo_id" class="form-select" data-selected="{{ propriedade.FK_TIPO.id }}">
+                            <option value="">Selecione um tipo</option>
+                            {% for tipo in tipos %}
+                                <option value="{{ tipo.id }}" {% if tipo.id == propriedade.FK_TIPO.id %}selected{% endif %}>
+                                    {{ tipo.NOME }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" name="porta" class="form-control" value="{{ propriedade.PORTA }}">
+                    </td>
+                    <td>
+                        <input type="text" name="descricao" class="form-control" value="{{ propriedade.DESCRICAO }}">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm remove-row">Remover</button>
+                    </td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        <button type="button" class="btn btn-primary" id="add-row">Adicionar Propriedade</button>
+        <button type="submit" class="btn btn-success mt-3">Salvar Alterações</button>
     </form>
 {% endif %}
+<script id="tipos-data" type="application/json">
+    {{ tipos_json|safe }}
+</script>
+
+
 {% endblock %}
