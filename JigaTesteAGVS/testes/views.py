@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Max
 import random as rd
 
-class TestesView(TemplateView):
+class TestesView(LoginRequiredMixin, TemplateView):
    template_name = 'testes.html'
 
 class TesteAutomaticoView(LoginRequiredMixin, CreateView):
@@ -52,7 +52,7 @@ class TesteAutomaticoView(LoginRequiredMixin, CreateView):
         # Redirect after processing
         return HttpResponseRedirect(self.success_url)
 
-class TesteManualView(CreateView):
+class TesteManualView(LoginRequiredMixin, CreateView):
     template_name = 'testeManual.html'
     form_class = tbTestesForm
     success_url = '/testes'

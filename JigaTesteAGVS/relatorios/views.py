@@ -1,13 +1,14 @@
 from django.views.generic import TemplateView, ListView, DetailView
 from testes.models import tbTestes, tbPlacas, tbPropriedades, tbTipos
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, Q
 from time import timezone
 from django.shortcuts import render
 
-class RelatoriosView(TemplateView):
+class RelatoriosView(LoginRequiredMixin, TemplateView):
     template_name = 'relatorios.html'
 
-class ListaView(ListView):
+class ListaView(LoginRequiredMixin, ListView):
     template_name = 'lista_testes.html'
     model = tbTestes
 
@@ -46,7 +47,7 @@ class DashboardView(TemplateView):
         return context
 
 
-class DetalhesView(DetailView):
+class DetalhesView(LoginRequiredMixin, DetailView):
     model = tbTestes
     template_name = 'detalhes.html'
     context_object_name = 'teste'

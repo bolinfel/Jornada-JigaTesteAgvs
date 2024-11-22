@@ -1,0 +1,61 @@
+{% extends "master.html" %}
+
+{% block content %}
+<h1>Editar Propriedades</h1>
+
+<!-- Seleção de Placa -->
+<form method="get" action="">
+    <div class="mb-3">
+        <label for="placa_id" class="form-label">Selecione uma Placa</label>
+        <select name="placa_id" id="placa_id" class="form-select" onchange="this.form.submit()">
+            <option value="">-- Selecione --</option>
+            {% for placa in placas %}
+                <option value="{{ placa.id }}" {% if selected_placa and placa.id == selected_placa.id %}selected{% endif %}>
+                    {{ placa.NOME }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</form>
+
+<!-- Tabela Editável -->
+{% if selected_placa %}
+    <h2>Propriedades de {{ selected_placa.NOME }}</h2>
+    <form method="post" action="">
+        {% csrf_token %}
+        <input type="hidden" name="placa_id" value="{{ selected_placa.id }}">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Porta</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for propriedade in propriedades %}
+                    <tr>
+                        <td>
+                            <input type="hidden" name="propriedade_id" value="{{ propriedade.id }}">
+                            <select name="tipo_id" class="form-select">
+                                {% for tipo in tipos %}
+                                    <option value="{{ tipo.id }}" {% if propriedade.FK_TIPO.id == tipo.id %}selected{% endif %}>
+                                        {{ tipo.NOME }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" name="porta" value="{{ propriedade.PORTA }}" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="descricao" value="{{ propriedade.DESCRICAO }}" class="form-control">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+{% endif %}
+{% endblock %}

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'testes',
     'relatorios',
     'user',
+    'config',
 ]
 
 MIDDLEWARE = [
