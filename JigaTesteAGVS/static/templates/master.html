@@ -9,7 +9,7 @@
     </head> 
     <body>
         <nav class="navbar navbar-light border-body navbar-expand-lg bg-body-tertiary"> 
-            <div class="container-fluid">
+          <div class="container-fluid">
               <a class="navbar-brand" href="{% url 'home'%}" style="font-size: 25px;">Jiga de Testes</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -31,14 +31,52 @@
                   </li>
                 </ul>
               </div>
-              {% if user.is_authenticated %}
+
+              <img src="{% static 'templates/images/profile.png' %}" class="user-pic" onclick="toggleMenu()">
+
+              <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                  <div class="user-info">
+                    <img src="{% static 'templates/images/profile.png' %}">
+                    <h2>Pedro Gonçalves</h2>
+                  </div>
+
+                  <hr>
+
+                  <a href="#" class="sub-menu-link">
+                    <img src="{% static 'templates/images/profile.png' %}">
+                    <span class="sub-menu-text">Edit Profile</span>
+                    <span class="sub-menu-flecha">></span> 
+                  </a>
+                  <a href="#" class="sub-menu-link">
+                    <img src="{% static 'templates/images/setting.png' %}">
+                    <span class="sub-menu-text">Settings & Privacy</span>
+                    <span class="sub-menu-flecha">></span> 
+                  </a>
+                  <a href="#" class="sub-menu-link">
+                    <img src="{% static 'templates/images/help.png' %}">
+                    <span class="sub-menu-text">Help & Support</span>
+                    <span class="sub-menu-flecha">></span> 
+                  </a>
+                  <a href="#" class="sub-menu-link">
+                    <img src="{% static 'templates/images/logout.png' %}">
+                    <span class="sub-menu-text">Logout</span>
+                    <span class="sub-menu-flecha">></span> 
+                  </a>
+
+                </div>
+              </div>
+
+              <!--{% if user.is_authenticated %}
               <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
                 <button class="btn btn-primary" type="submit">logout</button>
               </form>
-              {% endif %}
-            </div>
-          </nav>
+              {% endif %}-->
+          </div>
+        </nav>
+
+
         
         <div class="my-5 text-center container">
             {% block content %}
@@ -55,8 +93,16 @@
         <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 
-      <script src="{% static 'js/dataTable.js' %}"></script>
-      <script src="{% static 'js/configuration.js' %}"></script>
+        <script src="{% static 'js/dataTable.js' %}"></script>
+        <script src="{% static 'js/configuration.js' %}"></script>
+
+        <!-- Profile Menu -->
+        <script>
+          let subMenu = document.getElementById("subMenu");
+          function toggleMenu(){
+            subMenu.classList.toggle("open-menu");
+          }
+        </script>
       
     </body>
 </html>
