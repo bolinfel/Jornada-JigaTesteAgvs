@@ -58,9 +58,12 @@
                     <span class="sub-menu-text">Help & Support</span>
                     <span class="sub-menu-flecha">></span> 
                   </a>
-                  <a href="#" class="sub-menu-link">
+                  <a href="{% url 'logout' %}" class="sub-menu-link">
                     <img src="{% static 'templates/images/logout.png' %}">
-                    <span class="sub-menu-text">Logout</span>
+                    {% if user.is_authenticated %}
+                      {% csrf_token %}
+                      <span class="sub-menu-text">Logout</span>
+                    {% endif %}
                     <span class="sub-menu-flecha">></span> 
                   </a>
 
