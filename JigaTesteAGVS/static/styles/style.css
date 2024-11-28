@@ -72,7 +72,7 @@ p{
     color:white;
 }
 
-h1{
+h1, h2, th{
     color:white;
 }
 
@@ -85,7 +85,17 @@ form{
     font-size: 20px;
     border-radius: 5px;
     border-color: #F2921D;
-    border-width: 10px;
+    border-width: 8px;
+}
+
+.btn-light{
+    border-radius: 5px;
+    border-color: #F2921D;
+}
+
+.btn-success{
+    border-radius: 5px;
+    border-color: green;
 }
 
 i{
@@ -125,6 +135,17 @@ footer{
     margin: 5px;
 }
 
+tbody td{
+    align-content: center;
+    text-align: center;
+    width: 30%;
+}
+
+.checkbox{
+    width: 20px;
+    height: 20px;
+}
+
 /* Change the color of the "Show entries" text to white */
 .dataTables_length label,
 .dataTables_info {
@@ -162,7 +183,6 @@ footer{
 
   .body-login {
     background-color: #252525;
-    /*background: linear-gradient(to-right, #e2e2e2, #c9d6ff);*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -400,6 +420,7 @@ footer{
     background: #fff;
     padding: 20px;
     margin: 10px;
+    border-radius: 30px;
   }
 
   .user-info{
@@ -410,6 +431,7 @@ footer{
   .user-info h2{
     font-weight: 500;
     font-size: 25px;
+    color: #525252;
   }
 
   .user-info img{
@@ -418,7 +440,6 @@ footer{
     margin-right: 15px;
     background: #e5e5e5;
     padding: 8px;
-    margin-right: 15px;
   }
 
   .sub-menu hr{

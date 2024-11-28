@@ -51,14 +51,24 @@
                         <input type="text" name="descricao" class="form-control" value="{{ propriedade.DESCRICAO }}">
                     </td>
                     <td>
-                        <button type="button" class="btn btn-danger btn-sm remove-row">Remover</button>
+                        <!--<button type="button" class="btn btn-light btn-sm remove-row">Remover</button> -->
+                        <input type="checkbox" name="remover" class="checkbox">
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <button type="button" class="btn btn-primary" id="add-row">Adicionar Propriedade</button>
-        <button type="submit" class="btn btn-success mt-3">Salvar Alterações</button>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-light" id="add-row" style="border-width: 5px; margin-right: 200px;">Adicionar Propriedade</button>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-light w-100" style="border-width: 5px;">Salvar Alterações</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-light remove-row" style="border-width: 5px; margin-left: 200px;">Remover Selecionados</button>
+            </div>
+        </div>
     </form>
 {% endif %}
 <script id="tipos-data" type="application/json">
