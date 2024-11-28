@@ -135,7 +135,7 @@ footer{
     margin: 5px;
 }
 
-tbody td{
+.table-edit-placa td{
     align-content: center;
     text-align: center;
     width: 30%;
