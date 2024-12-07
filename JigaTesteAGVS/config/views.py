@@ -36,7 +36,6 @@ class EditarPlacaView(TemplateView):
     def post(self, request, *args, **kwargs):
         placa_id = request.POST.get('placa_id')
         selected_placa = get_object_or_404(tbPlacas, id=placa_id)
-
         tbPropriedades.objects.filter(FK_PLACA=selected_placa).delete()
 
         propriedades_data = zip(

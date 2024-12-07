@@ -55,7 +55,7 @@ class TesteAutomaticoView(LoginRequiredMixin, CreateView):
 class TesteManualView(LoginRequiredMixin, CreateView):
     template_name = 'testeManual.html'
     form_class = tbTestesForm
-    success_url = '/testes'
+    success_url = '/relatorios/lista'
 
     def form_invalid(self, form):
         print("Formulário inválido:", form.errors)

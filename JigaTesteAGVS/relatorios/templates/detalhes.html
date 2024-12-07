@@ -12,6 +12,7 @@
         <p><strong>Propriedade:</strong> {{ teste.FK_PROPRIEDADE.DESCRICAO }}</p>
         <p><strong>Resultado:</strong> {{ teste.RESULTADO|yesno:"Sucesso,Falha" }}</p>
         <p><strong>Tipo de Teste:</strong> {{ teste.TIPO_TESTE }}</p>
+        <p><strong>Autor:</strong> {{ teste.FK_OPERACAO.USUARIO }}</p>
     </div>
 </div>
 <a href="{% url 'relatorios.lista' %}" class="btn btn-light">Voltar</a>

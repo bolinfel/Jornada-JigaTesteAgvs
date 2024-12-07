@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="text" name="descricao" class="form-control">
             </td>
             <td>
-                <button type="button" class="btn btn-danger btn-sm remove-row">Remover</button>
+                <input type="checkbox" name="remover" class="checkbox">            
             </td>
         `;
         return newRow;

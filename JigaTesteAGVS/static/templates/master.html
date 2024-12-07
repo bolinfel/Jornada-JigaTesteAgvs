@@ -33,36 +33,26 @@
               </div>
 
               <img src="{% static 'templates/images/profile.png' %}" class="user-pic" onclick="toggleMenu()">
-
+              
+              
               <div class="sub-menu-wrap" id="subMenu">
                 <div class="sub-menu">
                   <div class="user-info">
                     <img src="{% static 'templates/images/profile.png' %}">
-                    <h2>Nome do Usuário</h2>
+                    <h2>{{user.get_username}}</h2>
                   </div>
 
                   <hr>
-
-                  <a href="#" class="sub-menu-link">
-                    <img src="{% static 'templates/images/profile.png' %}">
-                    <span class="sub-menu-text">Edit Profile</span>
-                    <span class="sub-menu-flecha">></span> 
-                  </a>
-                  <a href="#" class="sub-menu-link">
-                    <img src="{% static 'templates/images/setting.png' %}">
-                    <span class="sub-menu-text">Settings & Privacy</span>
-                    <span class="sub-menu-flecha">></span> 
-                  </a>
-                  <a href="#" class="sub-menu-link">
-                    <img src="{% static 'templates/images/help.png' %}">
-                    <span class="sub-menu-text">Help & Support</span>
-                    <span class="sub-menu-flecha">></span> 
-                  </a>
                   <a href="{% url 'logout' %}" class="sub-menu-link">
                     <img src="{% static 'templates/images/logout.png' %}">
                     {% if user.is_authenticated %}
-                      {% csrf_token %}
-                      <span class="sub-menu-text">Logout</span>
+                      
+                      <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">
+                          <span class="sub-menu-text">Logout</span>
+                        </button>
+                      </form>
                     {% endif %}
                     <span class="sub-menu-flecha">></span> 
                   </a>
